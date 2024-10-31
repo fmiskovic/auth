@@ -1,6 +1,5 @@
 ![go workflow](https://github.com/softika/auth/actions/workflows/test.yml/badge.svg)
 ![lint workflow](https://github.com/softika/auth/actions/workflows/lint.yml/badge.svg)
-![lint workflow](https://github.com/softika/auth/actions/workflows/release.yml/badge.svg)
 [![Go Report Card](https://goreportcard.com/badge/github.com/softika/auth)](https://goreportcard.com/report/github.com/softika/auth)
 
 
