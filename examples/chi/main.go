@@ -4,21 +4,24 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/go-chi/chi/v5"
+
 	"github.com/softika/auth"
 )
 
 func main() {
-	mux := http.NewServeMux()
+	r := chi.NewRouter()
 
-	// init auth middleware
-	a := auth.New(auth.Config{
+	// init auth configuration
+	cfg := auth.Config{
 		Secret: "your-secret",
-	})
+	}
 
 	// wrap the handler with the auth middleware
-	mux.Handle("/protected", a.Handler(http.HandlerFunc(HandleProtectedInfo)))
+	r.Use(auth.Handle(cfg))
+	r.Get("/protected", HandleProtectedInfo)
 
-	log.Fatal(http.ListenAndServe(":3000", mux))
+	log.Fatal(http.ListenAndServe(":3000", r))
 }
 
 func HandleProtectedInfo(w http.ResponseWriter, r *http.Request) {

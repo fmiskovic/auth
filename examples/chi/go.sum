@@ -1,0 +1,6 @@
+github.com/go-chi/chi/v5 v5.1.0 h1:acVI1TYaD+hhedDJ3r54HyA6sExp3HfXq7QWEEY/xMw=
+github.com/go-chi/chi/v5 v5.1.0/go.mod h1:DslCQbL2OYiznFReuXYUmQ2hGd1aDpCnlMNITLSKoi8=
+github.com/golang-jwt/jwt/v5 v5.2.1 h1:OuVbFODueb089Lh128TAcimifWaLhJwVflnrgM17wHk=
+github.com/golang-jwt/jwt/v5 v5.2.1/go.mod h1:pqrtFR0X4osieyHYxtmOUWsAWrfe1Q5UVIyoH402zdk=
+github.com/softika/auth v0.0.0-20241031194658-bec2b38a9d40 h1:nGKiM8SUQqQiDvq5HTCYEHrsHC/YTah8wVZw3Blq3DM=
+github.com/softika/auth v0.0.0-20241031194658-bec2b38a9d40/go.mod h1:u35xXg+nmscJKYCyRthVD9JeUr7dBHqVLDRR0T9E7uI=

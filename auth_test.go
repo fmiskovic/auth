@@ -22,6 +22,7 @@ func TestAuthHandler(t *testing.T) {
 	tests := []struct {
 		name     string
 		token    func(*testing.T) string
+		opts     []auth.Option
 		wantCode int
 	}{
 		{
@@ -67,6 +68,30 @@ func TestAuthHandler(t *testing.T) {
 			},
 			wantCode: http.StatusUnauthorized,
 		},
+		{
+			name: "invalid admin token",
+			token: func(t *testing.T) string {
+				valid, err := generateToken(cfg.TokenExp, cfg.Secret, jwt.SigningMethodHS256)
+				if err != nil {
+					t.Fatal(err)
+				}
+				return valid
+			},
+			opts:     []auth.Option{auth.OnlyAdmin()},
+			wantCode: http.StatusForbidden,
+		},
+		{
+			name: "valid admin token",
+			token: func(t *testing.T) string {
+				valid, err := generateToken(cfg.TokenExp, cfg.Secret, jwt.SigningMethodHS256, "ADMIN")
+				if err != nil {
+					t.Fatal(err)
+				}
+				return valid
+			},
+			opts:     []auth.Option{auth.OnlyAdmin()},
+			wantCode: http.StatusOK,
+		},
 	}
 
 	for _, tc := range tests {
@@ -81,7 +106,7 @@ func TestAuthHandler(t *testing.T) {
 			// http response recorder
 			w := httptest.NewRecorder()
 
-			a := auth.New(cfg)
+			a := auth.New(cfg, tt.opts...)
 
 			// wrap the test handler with the middleware
 			handler := a.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -99,7 +124,7 @@ func TestAuthHandler(t *testing.T) {
 	}
 }
 
-func generateToken(exp time.Duration, secret string, sig jwt.SigningMethod) (string, error) {
+func generateToken(exp time.Duration, secret string, sig jwt.SigningMethod, roles ...string) (string, error) {
 	now := time.Now()
 
 	claims := jwt.MapClaims{
@@ -107,7 +132,7 @@ func generateToken(exp time.Duration, secret string, sig jwt.SigningMethod) (str
 		"sub":   "8bde8e50-09b3-4f70-9988-87377f791c91",
 		"exp":   now.Add(exp).Unix(),
 		"iat":   now.Unix(),
-		"roles": []string{"USER"},
+		"roles": roles,
 	}
 
 	token := jwt.NewWithClaims(sig, claims)

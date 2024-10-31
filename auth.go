@@ -14,21 +14,15 @@ import (
 //
 // Example usage:
 //
+//	r := chi.NewRouter()
 //	cfg := auth.Config{
 //	    Secret:   "your-secret",
-//	    TokenExp: time.Hour,
 //	}
 //
-//	mux := http.NewServeMux()
+//	r.Use(auth.Handle(cfg))
+//	r.Get("/protected", HandleProtectedInfo)
 //
-//	handler := func(w http.ResponseWriter, r *http.Request) {
-//	    w.WriteHeader(http.StatusOK)
-//	    w.Write([]byte("success"))
-//	}
-//
-//	mux.Handle("/protected", auth.Handle(cfg)(http.HandlerFunc(handler)))
-//
-//	http.ListenAndServe(":8080", mux)
+//	http.ListenAndServe(":3000", r)
 //
 // Parameters:
 //
@@ -78,7 +72,7 @@ func New(cfg Config, opts ...Option) *Auth {
 //
 //	mux.Handle("/protected", auth.New(cfg).Handler(http.HandlerFunc(handler)))
 //
-//	http.ListenAndServe(":8080", mux)
+//	http.ListenAndServe(":3000", mux)
 //
 // Parameters:
 //
