@@ -1,4 +1,10 @@
-# Auth Library
+![go workflow](https://github.com/softika/auth/actions/workflows/test.yml/badge.svg)
+![lint workflow](https://github.com/softika/auth/actions/workflows/lint.yml/badge.svg)
+![lint workflow](https://github.com/softika/auth/actions/workflows/release.yml/badge.svg)
+[![Go Report Card](https://goreportcard.com/badge/github.com/softika/auth)](https://goreportcard.com/report/github.com/softika/auth)
+
+
+# JWT Auth Middleware
 
 This Go library provides authentication middleware and utilities for handling JWT tokens. 
 It includes functionality for validating tokens, extracting claims, and managing user context.
